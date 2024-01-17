@@ -40,7 +40,10 @@ local config = require("nvim-treesitter.configs")
 config.setup({
     ensure_installed = {
         "lua", 
-        "apex"
+        "apex",
+        "javascript",
+        "soql",
+        "sosl",
     },
     highlight = {
         enable = true
