@@ -22,7 +22,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+--    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    {
+        "ellisonleao/gruvbox.nvim"
+    },
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.5',
         dependencies = { 'nvim-lua/plenary.nvim' }
@@ -40,7 +43,21 @@ local plugins = {
             "MunifTanjim/nui.nvim",
         }
     },
-    { "lewis6991/gitsigns.nvim" }
+    { "lewis6991/gitsigns.nvim" },
+    {
+        "LazyVim/LazyVim",
+        opts = {
+            colorscheme = "gruvbox"
+        }
+    },
+    {
+         "folke/trouble.nvim",
+         dependencies = { "nvim-tree/nvim-web-devicons" },
+         opts = {
+            use_diagnostic_signs = true 
+  	    },
+        enabled = true
+    },
 }
 local opts = {}
 
@@ -91,6 +108,6 @@ vim.filetype.add({
   }
 })
 
-require("catppuccin").setup()
-vim.cmd.colorscheme="catppuccin"
+-- require("catppuccin").setup()
+-- vim.cmd.colorscheme="catppuccin"
 
