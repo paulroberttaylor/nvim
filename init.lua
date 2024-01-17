@@ -36,6 +36,7 @@ local plugins = {
             "MunifTanjim/nui.nvim",
         }
     },
+    { "lewis6991/gitsigns.nvim" }
 }
 local opts = {}
 
@@ -58,6 +59,20 @@ config.setup({
     highlight = {
         enable = true
     }
+})
+
+require("gitsigns").setup({
+        
+    signs = {
+        add          = { text = '│' },
+        change       = { text = '│' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+    },
+    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d %HH-%mm> - <summary>',
+    current_line_blame = true,
 })
 
 vim.filetype = on
