@@ -71,7 +71,7 @@ require("gitsigns").setup({
         changedelete = { text = '~' },
         untracked    = { text = '┆' },
     },
-    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d %HH-%MM> - <summary>',
+    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d %H:%M> - <summary>',
     current_line_blame = true,
 })
 
