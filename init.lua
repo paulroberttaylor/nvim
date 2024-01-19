@@ -22,13 +22,15 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
---    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     {
         "ellisonleao/gruvbox.nvim"
     },
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.5',
-        dependencies = { 'nvim-lua/plenary.nvim' }
+        dependencies = { 
+            'nvim-lua/plenary.nvim',
+            "nvim-telescope/telescope-live-grep-args.nvim" ,
+        }
     },
     {
         "nvim-treesitter/nvim-treesitter", 
@@ -41,7 +43,10 @@ local plugins = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
-        }
+        },
+        config = function()
+            require("telescope").load_extension("live_grep_args")
+        end
     },
     { "lewis6991/gitsigns.nvim" },
     {
@@ -51,14 +56,23 @@ local plugins = {
         }
     },
     {
-         "folke/trouble.nvim",
-         dependencies = { "nvim-tree/nvim-web-devicons" },
-         opts = {
-            use_diagnostic_signs = true 
-  	    },
-        enabled = true
+        "aserowy/tmux.nvim",
+        config = function() 
+            return require("tmux").setup() 
+        end
     },
+    {
+      "folke/which-key.nvim",
+      event = "VeryLazy",
+      init = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+      end,
+      opts = {
+      }
+   },
 }
+
 local opts = {}
 
 require("lazy").setup(plugins, opts)
@@ -66,7 +80,8 @@ require("lazy").setup(plugins, opts)
 local builtin = require("telescope.builtin")
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal right<CR>')
+vim.keymap.set('n', '<leader>e', ':Neotree filesystem reveal right<CR>')
+vim.keymap.set("n", "<leader>fs", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 
 local config = require("nvim-treesitter.configs")
 config.setup({
@@ -96,6 +111,8 @@ require("gitsigns").setup({
     current_line_blame = true,
 })
 
+require("which-key").setup()
+
 vim.filetype = on
 
 vim.filetype.add({
@@ -108,6 +125,54 @@ vim.filetype.add({
   }
 })
 
--- require("catppuccin").setup()
--- vim.cmd.colorscheme="catppuccin"
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+local conf = require('telescope.config').values
+local action_state = require('telescope.actions.state')
+local actions = require('telescope.actions')
+
+local function fetch_salesforce_orgs()
+    local file_path = 'data/salesforce_orgs.txt' -- Update with actual file path
+    local file = io.open(file_path, "r")
+    local orgs = {}
+    if file then
+        for line in file:lines() do
+            local id, name = line:match("([^:]+):([^:]+)")
+            table.insert(orgs, { id = id, name = name })
+        end
+        file:close()
+    else
+        print("Cannot open file: " .. file_path)
+    end
+    return orgs
+end
+
+local function entry_maker(entry)
+    return {
+        value = entry.id,
+        display = entry.name,
+        ordinal = entry.name,
+    }
+end
+
+local function salesforce_org_picker()
+    pickers.new({}, {
+        prompt_title = 'Salesforce Orgs',
+        finder = finders.new_table({
+            results = fetch_salesforce_orgs(),
+            entry_maker = entry_maker,
+        }),
+        sorter = conf.generic_sorter({}),
+        attach_mappings = function(prompt_bufnr, map)
+            actions.select_default:replace(function()
+                actions.close(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+                vim.api.nvim_put({selection.value}, "", false, true)
+            end)
+            return true
+        end,
+    }):find()
+end
+
+vim.api.nvim_create_user_command('SalesforceOrgPicker', salesforce_org_picker, {})
 
