@@ -6,7 +6,6 @@ vim.g.mapleader = " "
 
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.signcolumn = "number"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -114,8 +113,18 @@ wk.register({
                 "<cmd>lua require('telescope.builtin').buffers()<CR>", 
                 "List Buffers"
             }
-        }
-    }
+        },
+        s = {
+            name = "Salesforce",
+            o = {
+                name = "orgs",
+                l = {          
+                    "<cmd>SalesforceOrgPicker<CR>",
+                    "List Orgs"
+                }
+            },
+        },	
+    }   
 })
 
 vim.filetype = on
@@ -180,4 +189,13 @@ local function salesforce_org_picker()
 end
 
 vim.api.nvim_create_user_command('SalesforceOrgPicker', salesforce_org_picker, {})
+
+local function get_config_path()
+    local home = os.getenv("HOME") or os.getenv("USERPROFILE")
+    local os_name = vim.loop.os_uname().sysname
+    return home
+end
+
+local config_path = get_config_path()
+
 
