@@ -73,6 +73,7 @@ local plugins = {
    },
 }
 
+
 local opts = {}
 
 require("lazy").setup(plugins, opts)
@@ -98,20 +99,24 @@ config.setup({
 })
 
 require("gitsigns").setup({
-        
-    signs = {
-        add          = { text = '│' },
-        change       = { text = '│' },
-        delete       = { text = '_' },
-        topdelete    = { text = '‾' },
-        changedelete = { text = '~' },
-        untracked    = { text = '┆' },
-    },
+    signcolumn = false,
     current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d %H:%M> - <summary>',
     current_line_blame = true,
 })
 
-require("which-key").setup()
+local wk = require("which-key")
+
+wk.register({
+    ["<leader>"] = {
+        b = {
+            name = "buffers",
+            l = {
+                "<cmd>lua require('telescope.builtin').buffers()<CR>", 
+                "List Buffers"
+            }
+        }
+    }
+})
 
 vim.filetype = on
 
