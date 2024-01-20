@@ -20,80 +20,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = {
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-    {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' }
-    },
-    {
-        "romainl/Apprentice"
-    },
-    {
-        "folke/tokyonight.nvim"
-    },
-    {
-        "ellisonleao/gruvbox.nvim"
-    },
-    {
-        'nvim-telescope/telescope.nvim', tag = '0.1.5',
-        dependencies = { 
-            'nvim-lua/plenary.nvim',
-            "nvim-telescope/telescope-live-grep-args.nvim" ,
+require("lazy").setup({
+    spec = {
+        {
+            import = "plugins"
         }
     },
-    {
-        "nvim-treesitter/nvim-treesitter", 
-        build = ":TSUpdate" 
-    },
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "MunifTanjim/nui.nvim",
-        },
-        config = function()
-            require("telescope").load_extension("live_grep_args")
-        end
-    },
-    { "lewis6991/gitsigns.nvim" },
-    {
-        "LazyVim/LazyVim",
-        opts = {
-            colorscheme = "gruvbox"
-        }
-    },
-    {
-        "aserowy/tmux.nvim",
-        config = function() 
-            return require("tmux").setup() 
-        end
-    },
-    {
-      "folke/which-key.nvim",
-      event = "VeryLazy",
-      init = function()
-        vim.o.timeout = true
-        vim.o.timeoutlen = 300
-      end,
-      opts = {
-      }
-   },
-    {
-        "kdheepak/lazygit.nvim",
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-    },
-}
-
-
-local opts = {}
-
-require("lazy").setup(plugins, opts)
+})
 
 local builtin = require("telescope.builtin")
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
@@ -114,6 +47,8 @@ config.setup({
         enable = true
     }
 })
+
+require('Comment').setup()
 
 require("gitsigns").setup({
     signcolumn = false,
@@ -164,7 +99,7 @@ local action_state = require('telescope.actions.state')
 local actions = require('telescope.actions')
 
 local function fetch_salesforce_orgs()
-    local file_path = 'data/salesforce_orgs.txt' -- Update with actual file path
+    local file_path = 'data/salesforce_orgs.txt'
     local file = io.open(file_path, "r")
     local orgs = {}
     if file then
@@ -219,10 +154,11 @@ local config_path = get_config_path()
 require('lualine').setup()
 
 require("catppuccin").setup({
-    flavour = "latte", -- latte, frappe, macchiato, mocha
-    background = { -- :h background
+    flavour = "latte",
+    background = {
         light = "latte",
         dark = "mocha",
     },
     transparent_background = true
 })
+

@@ -1,5 +1,6 @@
 {
   "Apprentice": { "branch": "master", "commit": "59ad13661fa15edaf72c62218903c7817b5a3691" },
+  "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
   "LazyVim": { "branch": "main", "commit": "879e29504d43e9f178d967ecc34d482f902e5a91" },
   "catppuccin": { "branch": "main", "commit": "f288876c6d05d3bb91b0e72b8031fe9e26ef05b8" },
   "gitsigns.nvim": { "branch": "main", "commit": "4aaacbf5e5e2218fd05eb75703fe9e0f85335803" },
