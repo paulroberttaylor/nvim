@@ -81,6 +81,13 @@ local plugins = {
       opts = {
       }
    },
+    {
+        "kdheepak/lazygit.nvim",
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+    },
 }
 
 
@@ -217,5 +224,5 @@ require("catppuccin").setup({
         light = "latte",
         dark = "mocha",
     },
-    transparent_background = false
+    transparent_background = true
 })
