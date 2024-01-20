@@ -22,6 +22,12 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
     {
+        "romainl/Apprentice"
+    },
+    {
+        "folke/tokyonight.nvim"
+    },
+    {
         "ellisonleao/gruvbox.nvim"
     },
     {
@@ -51,7 +57,7 @@ local plugins = {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "gruvbox"
+            colorscheme = "apprentice"
         }
     },
     {
