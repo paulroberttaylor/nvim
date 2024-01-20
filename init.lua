@@ -22,6 +22,10 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
     {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
+    {
         "romainl/Apprentice"
     },
     {
@@ -204,4 +208,4 @@ end
 
 local config_path = get_config_path()
 
-
+require('lualine').setup()
