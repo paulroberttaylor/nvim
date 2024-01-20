@@ -21,6 +21,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
@@ -61,7 +62,7 @@ local plugins = {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "apprentice"
+            colorscheme = "desert"
         }
     },
     {
@@ -209,3 +210,12 @@ end
 local config_path = get_config_path()
 
 require('lualine').setup()
+
+require("catppuccin").setup({
+    flavour = "latte", -- latte, frappe, macchiato, mocha
+    background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+    },
+    transparent_background = false
+})
