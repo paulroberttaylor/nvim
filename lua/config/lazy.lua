@@ -95,6 +95,7 @@ vim.filetype.add({
   }
 })
 
+
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local conf = require('telescope.config').values
@@ -156,14 +157,6 @@ local config_path = get_config_path()
 
 require('lualine').setup()
 
-require("catppuccin").setup({
-    flavour = "latte",
-    background = {
-        light = "latte",
-        dark = "mocha",
-    },
-    transparent_background = true
-})
 
 require("mason").setup()
 
@@ -182,6 +175,13 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
+local lspconfig = require('lspconfig')
 
-
-
+require'lspconfig'.apex_ls.setup {
+    filetypes = { 'cls', 'trigger', 'apex' },
+  apex_jar_path = vim.fn.expand('$HOME/AppData/Local/nvim-data/mason/share/pex-jorje-lsp.jar'),
+  apex_enable_semantic_errors = true, -- Whether to allow Apex Language Server to surface semantic errors
+  apex_enable_completion_statistics = true, -- Whether to allow Apex Language Server to collect telemetry on code completion usage
+}
+--
+-- print(vim.fn.expand('$HOME/AppData/Local/nvim-data/mason/share/apex-language-serverpex-jorje-lsp.jar'))
