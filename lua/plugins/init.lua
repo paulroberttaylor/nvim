@@ -73,4 +73,12 @@ return {
         },
         lazy = false,
     },
+    {
+        "williamboman/mason.nvim"
+    },
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" }
+    },
 }
