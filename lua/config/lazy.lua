@@ -42,6 +42,10 @@ config.setup({
         "javascript",
         "soql",
         "sosl",
+        "xml",
+        "json",
+        "python",
+        "markdown",
     },
     highlight = {
         enable = true
