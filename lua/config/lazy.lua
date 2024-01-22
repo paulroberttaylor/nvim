@@ -175,13 +175,12 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
-local lspconfig = require('lspconfig')
+local apex_jar_path = vim.fn.stdpath("config") .. '/lspserver/' .. 'apex-jorje-lsp.jar'
 
 require'lspconfig'.apex_ls.setup {
-    filetypes = { 'cls', 'trigger', 'apex' },
-  apex_jar_path = vim.fn.expand('$HOME/AppData/Local/nvim-data/mason/share/pex-jorje-lsp.jar'),
-  apex_enable_semantic_errors = true, -- Whether to allow Apex Language Server to surface semantic errors
-  apex_enable_completion_statistics = true, -- Whether to allow Apex Language Server to collect telemetry on code completion usage
+  apex_jar_path = apex_jar_path,
+  apex_enable_semantic_errors = true, 
+  apex_enable_completion_statistics = true,
+  filetypes = {'apex', 'cls', 'trigger'}
 }
---
--- print(vim.fn.expand('$HOME/AppData/Local/nvim-data/mason/share/apex-language-serverpex-jorje-lsp.jar'))
+
