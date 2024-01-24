@@ -159,8 +159,11 @@ end
 
 local config_path = get_config_path()
 
-require('lualine').setup()
-
+require('lualine').setup({
+  options = {
+    theme = 'dracula-nvim'
+  }
+})
 
 require("mason").setup()
 

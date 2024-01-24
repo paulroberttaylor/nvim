@@ -1,13 +1,16 @@
 return {
     {
+        "github/copilot.vim"
+    },
+    {
+        "hrsh7th/nvim-cmp"
+    },
+    {
         "neovim/nvim-lspconfig"
     },
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
-    },
-    {
-        "romainl/Apprentice"
     },
     {
         "folke/tokyonight.nvim"
@@ -39,10 +42,11 @@ return {
         end
     },
     { "lewis6991/gitsigns.nvim" },
+    { "Mofiqul/dracula.nvim" },
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "gruvbox"
+            colorscheme = "dracula"
         }
     },
     {
