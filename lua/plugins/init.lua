@@ -87,4 +87,8 @@ return {
         branch = "harpoon2",
         dependencies = { "nvim-lua/plenary.nvim" }
     },
+    { 
+        'echasnovski/mini.nvim', 
+        version = false,
+    },
 }

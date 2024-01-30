@@ -46,6 +46,7 @@ config.setup({
         "json",
         "python",
         "markdown",
+        "groovy",
     },
     highlight = {
         enable = true
